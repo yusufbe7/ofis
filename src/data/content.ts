@@ -8,7 +8,7 @@ export interface Advantage {
 
 export const ADVANTAGES: Advantage[] = [
   { icon: "pin", title: "Qulay lokatsiyalar", text: "Toshkentning ish yurituvchi to'rt tumanida." },
-  { icon: "doc", title: "Shaffof shartlar", text: "Narx va maydon oldindan ko'rinadi, yashirin to'lov yo'q." },
+  { icon: "doc", title: "Shaffof shartlar", text: "Narx vaa maydon oldindan ko'rinadi, yashirin to'lov yo'q." },
   { icon: "grid", title: "Turli hajmlar", text: "18 m² dan 85 m² gacha — jamoangizga qarab." },
   { icon: "bolt", title: "Tez ko'chib kirish", text: "Tayyor ofislar, ortiqcha kutishsiz." },
   { icon: "chat", title: "Vositachisiz", text: "To'g'ridan-to'g'ri bino menejeri bilan gaplashasiz." },
