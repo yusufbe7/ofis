@@ -1,0 +1,201 @@
+import { galleryFor, facade } from "../lib/art";
+import type { Building, Office } from "../types";
+
+/**
+ * Demo inventory. Field names mirror the owner's own records
+ * (Bino ID, Xona ID, Holati, Maydoni, Xona raqami) so swapping in a real
+ * export is a rename, not a rewrite.
+ *
+ * Coordinates are real Tashkent district centres — the map reads them directly.
+ */
+export const BUILDINGS: Building[] = [
+  {
+    id: "B1",
+    name: "Business Center A",
+    district: "Yunusobod tumani",
+    address: "[Manzil kiritiladi]",
+    description: "Metroga yaqin, ko'p qavatli biznes markaz. Yer osti parkovkasi bor.",
+    image: facade(1),
+    lat: 41.3608,
+    lng: 69.289,
+  },
+  {
+    id: "B2",
+    name: "Business Center B",
+    district: "Mirzo Ulug'bek tumani",
+    address: "[Manzil kiritiladi]",
+    description: "Markaziy yo'llarga chiqish oson, keng parkovkali zamonaviy bino.",
+    image: facade(2),
+    lat: 41.325,
+    lng: 69.34,
+  },
+  {
+    id: "B3",
+    name: "Business Center C",
+    district: "Olmazor tumani",
+    address: "[Manzil kiritiladi]",
+    description: "Kichik va o'rta kompaniyalar uchun tayyor ofis maydonlari.",
+    image: facade(3),
+    lat: 41.338,
+    lng: 69.205,
+  },
+  {
+    id: "B4",
+    name: "Business Center D",
+    district: "Chilonzor tumani",
+    address: "[Manzil kiritiladi]",
+    description: "Birinchi qavatdan kirish, mijoz qabul qiladigan jamoalar uchun qulay.",
+    image: facade(4),
+    lat: 41.275,
+    lng: 69.204,
+  },
+];
+
+export const OFFICES: Office[] = [
+  {
+    id: "O1", buildingId: "B1", roomId: "R-24C", roomNo: "24C",
+    area: 25, floor: 3, monthlyRent: 5_000_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Yorug' va ixcham ofis. 3–4 kishilik jamoa uchun qulay, derazalari hovliga qaraydi.",
+    amenities: ["Wi-Fi", "Xavfsizlik", "Konditsioner", "Lift"],
+    images: galleryFor(0),
+  },
+  {
+    id: "O2", buildingId: "B2", roomId: "R-12", roomNo: "12",
+    area: 36, floor: 2, monthlyRent: 7_200_000,
+    status: "Bo'sh", available: "Hozir", furnished: true,
+    description: "To'liq jihozlangan: stollar, kreslolar va ish o'rinlari tayyor. Ertaga ko'chib kirsa bo'ladi.",
+    amenities: ["Wi-Fi", "24/7 kirish", "Parkovka", "Konditsioner"],
+    images: galleryFor(1),
+  },
+  {
+    id: "O3", buildingId: "B3", roomId: "R-8", roomNo: "8",
+    area: 50, floor: 4, monthlyRent: 9_500_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Keng ofis. Alohida kabinet va ochiq ish zonasiga bo'lish imkoniyati bor.",
+    amenities: ["Wi-Fi", "Xavfsizlik", "Lift", "Qabulxona"],
+    images: galleryFor(2),
+  },
+  {
+    id: "O4", buildingId: "B1", roomId: "R-31", roomNo: "31",
+    area: 18, floor: 3, monthlyRent: 3_800_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Yakka tadbirkorlar va yangi boshlagan jamoalar uchun ixcham ofis.",
+    amenities: ["Wi-Fi", "Xavfsizlik", "Lift"],
+    images: galleryFor(3),
+  },
+  {
+    id: "O5", buildingId: "B4", roomId: "R-5", roomNo: "5",
+    area: 42, floor: 1, monthlyRent: 7_900_000,
+    status: "Bo'sh", available: "Keyingi oydan", furnished: true,
+    description: "Birinchi qavatda, ko'chadan alohida kirish. Mijoz qabul qilish uchun qulay.",
+    amenities: ["Wi-Fi", "Parkovka", "Qabulxona", "Konditsioner"],
+    images: galleryFor(4),
+  },
+  {
+    id: "O6", buildingId: "B2", roomId: "R-21", roomNo: "21",
+    area: 64, floor: 5, monthlyRent: 12_800_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Katta jamoa uchun keng maydon. Yig'ilish xonasini alohida ajratish mumkin.",
+    amenities: ["Wi-Fi", "24/7 kirish", "Yig'ilish xonasi", "Lift"],
+    images: galleryFor(5),
+  },
+  {
+    id: "O7", buildingId: "B3", roomId: "R-15", roomNo: "15",
+    area: 30, floor: 2, monthlyRent: 5_600_000,
+    status: "Bo'sh", available: "Hozir", furnished: true,
+    description: "Jihozlangan o'rta hajmli ofis. 6–8 ish o'rni joylashadi.",
+    amenities: ["Wi-Fi", "Xavfsizlik", "Konditsioner"],
+    images: galleryFor(6),
+  },
+  {
+    id: "O8", buildingId: "B4", roomId: "R-9", roomNo: "9",
+    area: 85, floor: 6, monthlyRent: 16_500_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Eng katta maydon: ochiq zona va bir nechta kabinet uchun yetarli.",
+    amenities: ["Wi-Fi", "Lift", "Parkovka", "Yig'ilish xonasi", "Xavfsizlik"],
+    images: galleryFor(7),
+  },
+  {
+    id: "O10", buildingId: "B1", roomId: "R-12A", roomNo: "12A",
+    area: 32, floor: 1, monthlyRent: 6_100_000,
+    status: "Bo'sh", available: "Hozir", furnished: true,
+    description: "Birinchi qavat, ko'chaga chiqish alohida. Mijoz qabul qiladigan jamoalar uchun.",
+    amenities: ["Wi-Fi", "Parkovka", "Qabulxona"],
+    images: galleryFor(10),
+  },
+  {
+    id: "O11", buildingId: "B1", roomId: "R-52", roomNo: "52",
+    area: 58, floor: 5, monthlyRent: 10_200_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Yuqori qavat, shahar manzarasi. Ikki kabinetga bo'lish mumkin.",
+    amenities: ["Wi-Fi", "Lift", "Xavfsizlik", "Konditsioner"],
+    images: galleryFor(11),
+  },
+  {
+    id: "O12", buildingId: "B2", roomId: "R-34", roomNo: "34",
+    area: 22, floor: 3, monthlyRent: 4_400_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Ixcham ofis, 2–3 ish o'rni. Yangi jamoalar uchun arzon boshlanish.",
+    amenities: ["Wi-Fi", "Lift"],
+    images: galleryFor(12),
+  },
+  {
+    id: "O13", buildingId: "B2", roomId: "R-61", roomNo: "61",
+    area: 78, floor: 6, monthlyRent: 15_200_000,
+    status: "Bo'sh", available: "Keyingi oydan", furnished: false,
+    description: "Butun qavatning yarmi. Katta jamoa yoki ikki bo'lim uchun.",
+    amenities: ["Wi-Fi", "24/7 kirish", "Yig'ilish xonasi", "Parkovka", "Lift"],
+    images: galleryFor(13),
+  },
+  {
+    id: "O14", buildingId: "B3", roomId: "R-31", roomNo: "31",
+    area: 40, floor: 3, monthlyRent: 7_100_000,
+    status: "Bo'sh", available: "Hozir", furnished: true,
+    description: "Jihozlangan, derazalari janubga qaraydi. Kun bo'yi yorug'.",
+    amenities: ["Wi-Fi", "Konditsioner", "Xavfsizlik", "Lift"],
+    images: galleryFor(14),
+  },
+  {
+    id: "O15", buildingId: "B3", roomId: "R-50", roomNo: "50",
+    area: 26, floor: 5, monthlyRent: 4_900_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Tinch qavat, koridor oxirida. Diqqat talab qiladigan ish uchun.",
+    amenities: ["Wi-Fi", "Lift"],
+    images: galleryFor(15),
+  },
+  {
+    id: "O16", buildingId: "B4", roomId: "R-22", roomNo: "22",
+    area: 54, floor: 2, monthlyRent: 9_800_000,
+    status: "Bo'sh", available: "Hozir", furnished: false,
+    description: "Keng ochiq maydon, ustunsiz. Jamoani xohlagancha joylashtirasiz.",
+    amenities: ["Wi-Fi", "Parkovka", "Lift", "Xavfsizlik"],
+    images: galleryFor(16),
+  },
+  {
+    id: "O17", buildingId: "B4", roomId: "R-41", roomNo: "41",
+    area: 34, floor: 4, monthlyRent: 6_300_000,
+    status: "Bo'sh", available: "Hozir", furnished: true,
+    description: "Jihozlangan o'rta ofis. Shartnoma imzolangan kuni ko'chsa bo'ladi.",
+    amenities: ["Wi-Fi", "Konditsioner", "Qabulxona"],
+    images: galleryFor(17),
+  },
+  {
+    // Second occupied room — the public filter must hide this one too.
+    id: "O18", buildingId: "B3", roomId: "R-60", roomNo: "60",
+    area: 46, floor: 6, monthlyRent: 8_700_000,
+    status: "Band", available: "—", furnished: true,
+    description: "Band ofis — saytda ko'rinmaydi.",
+    amenities: [],
+    images: galleryFor(18),
+  },
+  {
+    // Deliberately not vacant — proves the public filter works.
+    id: "O9", buildingId: "B1", roomId: "R-40", roomNo: "40",
+    area: 28, floor: 4, monthlyRent: 5_200_000,
+    status: "Band", available: "—", furnished: false,
+    description: "Band ofis — saytda ko'rinmaydi.",
+    amenities: [],
+    images: galleryFor(8),
+  },
+];

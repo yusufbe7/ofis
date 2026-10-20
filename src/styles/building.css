@@ -1,0 +1,227 @@
+/* ============================================================
+   Isometric floor stack. One CSS 3D scene, no library.
+   ============================================================ */
+
+.explorer-section { position: relative; }
+
+.explorer-switch { display: flex; gap: 6px; }
+.explorer-tab {
+  width: 42px; height: 42px;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--bg-raised);
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+}
+.explorer-tab:hover { color: var(--text); border-color: rgba(255,255,255,.24); }
+.explorer-tab[aria-pressed="true"] {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--brass-ink);
+}
+
+.explorer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+
+/* ---------- The 3D stage ---------- */
+.explorer-stage {
+  position: relative;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  perspective: 1700px;
+  perspective-origin: 50% 46%;
+}
+
+/* Soft pool of light under the model, so it sits on something */
+.explorer-stage::after {
+  content: "";
+  position: absolute;
+  left: 50%; bottom: 12%;
+  width: 70%; height: 150px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(214,174,107,.1), transparent 70%);
+  pointer-events: none;
+}
+
+.stack {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(56deg) rotateZ(-38deg) scale(1.18);
+  transition: transform .7s cubic-bezier(.2,.8,.2,1);
+}
+.explorer-stage:hover .stack { transform: rotateX(52deg) rotateZ(-34deg) scale(1.2); }
+
+/* Each floor is a flat plane pushed up the Z axis */
+.slab {
+  display: block;
+  position: relative;
+  width: 330px;
+  height: 218px;
+  margin: 0 auto;
+  padding: 0;
+  border: 0;
+  background: none;
+  transform-style: preserve-3d;
+  transform: translateZ(calc(var(--i) * -40px));
+  transition: transform .34s cubic-bezier(.2,.8,.2,1), filter .34s;
+  cursor: pointer;
+}
+.slab + .slab { margin-top: -218px; }
+.slab:disabled { cursor: default; }
+
+.slab-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #1a1a1f, #131317);
+  border: 1px solid rgba(255,255,255,.07);
+  box-shadow: 0 10px 28px -14px rgba(0,0,0,.95);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  transition: background .3s, border-color .3s, box-shadow .3s;
+}
+
+/* The 1px side wall gives each slab physical thickness */
+.slab-edge {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 14px;
+  transform: rotateX(90deg);
+  transform-origin: bottom;
+  background: linear-gradient(#0e0e11, #08080a);
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+
+/* Floors with vacancies are lit — the single brass meaning, applied here too */
+.slab-free .slab-face {
+  background: linear-gradient(135deg, #2e2619, #1b1920);
+  border-color: rgba(214,174,107,.45);
+  box-shadow:
+    inset 0 0 40px rgba(214,174,107,.1),
+    0 0 0 1px rgba(214,174,107,.16),
+    0 16px 44px -16px rgba(214,174,107,.45),
+    0 10px 28px -14px rgba(0,0,0,.95);
+}
+.slab-free .slab-edge { background: linear-gradient(rgba(214,174,107,.3), #0a0a0c); }
+
+.slab-hover { transform: translateZ(calc(var(--i) * -40px)) translateX(30px) translateY(-30px); }
+.slab-free.slab-hover .slab-face { border-color: var(--brass); }
+
+.slab-no {
+  position: absolute;
+  left: 18px; top: 16px;
+  font-family: var(--serif);
+  font-size: 40px;
+  line-height: 1;
+  color: rgba(255,255,255,.2);
+  transform: rotateZ(38deg) rotateX(-56deg);
+  transform-origin: left top;
+}
+.slab-free .slab-no { color: var(--brass); }
+
+.slab-count {
+  position: absolute;
+  right: 16px; bottom: 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brass);
+  white-space: nowrap;
+  transform: rotateZ(38deg) rotateX(-56deg);
+  transform-origin: right bottom;
+}
+
+/* Window grid, flattened onto the slab */
+.slab-windows {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 11px;
+  width: 52%;
+  opacity: .62;
+}
+.slab-windows i {
+  display: block;
+  aspect-ratio: 1.5;
+  background: rgba(255,255,255,.04);
+  border-radius: 1px;
+}
+.slab-windows i.lit { background: rgba(214,174,107,.45); box-shadow: 0 0 8px rgba(214,174,107,.3); }
+
+.stack-ground {
+  width: 374px; height: 250px;
+  margin: -218px auto 0;
+  transform: translateZ(-280px);
+  border-radius: 4px;
+  background: repeating-linear-gradient(45deg, #0d0d10 0 14px, #0f0f13 14px 28px);
+  border: 1px solid rgba(255,255,255,.04);
+}
+
+/* ---------- Side panel ---------- */
+.explorer-info {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--panel);
+  padding: 26px;
+}
+.explorer-name { font-family: var(--serif); font-weight: 400; font-size: 28px; margin: 4px 0 8px; }
+.explorer-desc { color: var(--muted); font-size: 14px; }
+
+.explorer-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 22px 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.explorer-stats dt { font-size: 12px; color: var(--dim); margin-bottom: 2px; }
+.explorer-stats dd { font-size: 28px; line-height: 1; }
+
+.explorer-peek {
+  min-height: 92px;
+  padding: 16px;
+  border-radius: var(--r);
+  border: 1px solid var(--line);
+  background: var(--bg-raised);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: border-color .3s, background .3s;
+}
+.explorer-peek.is-on { border-color: rgba(214,174,107,.3); background: rgba(214,174,107,.05); }
+.explorer-peek-main { font-size: 16px; font-weight: 600; margin-top: 2px; }
+.explorer-peek-sub { font-size: 13px; color: var(--dim); margin-top: 3px; }
+
+@media (max-width: 1100px) {
+  .explorer { grid-template-columns: 1fr; gap: 28px; }
+  .explorer-stage { min-height: 440px; }
+}
+
+@media (max-width: 760px) {
+  /* Scale the model itself, not the stage, so its box shrinks with it
+     and the panel below keeps its distance. */
+  .explorer-stage { min-height: 400px; overflow: hidden; }
+  .stack { transform: rotateX(56deg) rotateZ(-38deg) scale(.78); }
+  .explorer-stage:hover .stack { transform: rotateX(56deg) rotateZ(-38deg) scale(.78); }
+}
+
+@media (max-width: 480px) {
+  .explorer-stage { min-height: 330px; }
+  .stack { transform: rotateX(56deg) rotateZ(-38deg) scale(.6); }
+  .explorer-stage:hover .stack { transform: rotateX(56deg) rotateZ(-38deg) scale(.6); }
+}
+
+/* The stack is decorative motion for anyone who opted out of animation */
+@media (prefers-reduced-motion: reduce) {
+  .stack, .slab { transition: none; }
+  .explorer-stage:hover .stack { transform: rotateX(56deg) rotateZ(-38deg) scale(1.18); }
+}

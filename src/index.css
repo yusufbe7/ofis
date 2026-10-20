@@ -1,0 +1,208 @@
+/* ============================================================
+   Prime Ofis — design tokens
+   Near-black surfaces, one accent. The brass accent carries a
+   single meaning across the whole site: AVAILABILITY — a vacant
+   office, the action that gets you one, the selected location.
+   Nothing decorative is ever brass.
+   ============================================================ */
+
+:root {
+  --bg:            #0a0a0b;
+  --bg-raised:     #0f0f11;
+  --panel:         #141417;
+  --panel-hi:      #1a1a1e;
+
+  --line:          rgba(255, 255, 255, 0.07);
+  --line-strong:   rgba(255, 255, 255, 0.14);
+
+  --text:          #ededf0;
+  --muted:         #9c9ca5;
+  --dim:           #65656f;
+
+  --brass:         #d6ae6b;
+  --brass-dim:     #a8864e;
+  --brass-ink:     #15110a;
+
+  --ok:            #6fc79b;
+  --warn:          #e0b25c;
+  --err:           #e8796f;
+
+  --r-sm: 8px;
+  --r:    12px;
+  --r-lg: 18px;
+
+  --shadow: 0 1px 2px rgba(0,0,0,.5), 0 16px 40px -16px rgba(0,0,0,.8);
+  --shadow-lg: 0 2px 6px rgba(0,0,0,.5), 0 40px 90px -30px rgba(0,0,0,.95);
+
+  --maxw: 1240px;
+
+  --serif: "Instrument Serif", Georgia, serif;
+  --sans: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Ambient wash — barely visible, keeps the page from reading as flat black */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(900px 500px at 15% -5%, rgba(214, 174, 107, 0.05), transparent 70%),
+    radial-gradient(700px 400px at 95% 10%, rgba(255, 255, 255, 0.025), transparent 70%);
+}
+
+#root { position: relative; z-index: 1; }
+
+img { display: block; max-width: 100%; height: auto; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection { background: rgba(214, 174, 107, 0.25); }
+
+/* ---------- Typography ---------- */
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+}
+
+h2.display { font-size: clamp(30px, 4vw, 46px); }
+h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+
+.eyebrow {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--dim);
+  letter-spacing: 0.02em;
+}
+
+.lede { color: var(--muted); max-width: 54ch; font-size: 15.5px; }
+
+/* Prices and figures read as real estate when set in the serif */
+.figure {
+  font-family: var(--serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Layout ---------- */
+.wrap { width: min(var(--maxw), 100% - 40px); margin-inline: auto; }
+.section { padding: clamp(60px, 8vw, 104px) 0; }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.rule { height: 1px; background: var(--line); border: 0; }
+
+/* ---------- Surfaces ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+}
+
+.card-lift {
+  transition: transform .28s cubic-bezier(.2,.8,.2,1), border-color .28s, box-shadow .28s;
+}
+.card-lift:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Scrollbars ---------- */
+.thin-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 99px; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* ---------- Leaflet overrides (dark) ---------- */
+.leaflet-container {
+  background: #0d0d0f;
+  font-family: var(--sans);
+  border-radius: var(--r);
+}
+.leaflet-control-attribution {
+  background: rgba(10,10,11,.82) !important;
+  color: var(--dim) !important;
+  font-size: 10.5px !important;
+  border-top-left-radius: 6px;
+}
+.leaflet-control-attribution a { color: var(--muted) !important; }
+.leaflet-bar a {
+  background: var(--panel) !important;
+  color: var(--text) !important;
+  border-color: var(--line-strong) !important;
+}
+.leaflet-bar a:hover { background: var(--panel-hi) !important; }
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: var(--panel-hi);
+  color: var(--text);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow);
+}
+.leaflet-popup-content { margin: 12px 14px; font-size: 13px; }
+.leaflet-popup-close-button { color: var(--muted) !important; }
+
+/* Marker: a brass pin when selected, muted otherwise */
+.pin {
+  display: grid;
+  place-items: center;
+  width: 30px; height: 30px;
+  border-radius: 50% 50% 50% 2px;
+  transform: rotate(-45deg);
+  background: var(--panel-hi);
+  border: 1.5px solid var(--line-strong);
+  color: var(--muted);
+  transition: background .2s, border-color .2s, color .2s, transform .2s;
+  box-shadow: 0 6px 14px rgba(0,0,0,.6);
+}
+.pin span { transform: rotate(45deg); font-size: 11.5px; font-weight: 600; }
+.pin-on {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--brass-ink);
+  transform: rotate(-45deg) scale(1.14);
+  z-index: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
